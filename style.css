@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+:root {
+  --main-bg-color: #22222a;
+  --sub-message-color: #6e75dd;
+  --sub-side-color: #000000;
+  --sub-date-color: #54545e;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--main-bg-color);
+}
+
+#message-container {
+  width: 500px;
+  height: 100vh;
+  position: relative;
+}
+
+#title,
+#input-field {
+  position: fixed;
+  width: 500px;
+  height: 60px;
+  background-color: var(--sub-side-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+#title {
+  top: 0;
+  color: white;
+  font-size: 20px;
+}
+
+#input-field {
+  bottom: 0;
+  color: var(--sub-date-color);
+  font-size: 14px;
+}
+
+.user-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--sub-date-color);
+  padding: 8px;
+  border-radius: 20px;
+}
+
+.push-button {
+  width: 25px;
+  height: 25px;
+  color: white;
+  background-color: var(--sub-message-color);
+  border-radius: 50%;
+  border: none;
+}
+
+#messages {
+  padding: 60px 0;
+}
+
+li {
+  list-style: none;
+}
+
+#messages li {
+  margin: 16px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.name {
+  color: white;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 6px;
+}
+.artist-message {
+  color: white;
+  font-weight: 300;
+  font-size: 14px;
+  background-color: var(--sub-message-color);
+  padding: 8px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-left: 46px;
+}
