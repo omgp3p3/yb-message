@@ -98,13 +98,44 @@ li {
   margin-top: 10px;
   margin-left: 6px;
 }
+
 .artist-message {
+  display: flex;
+  align-items: flex-end;
+}
+.artist-message .content {
   color: white;
   font-weight: 300;
   font-size: 14px;
   background-color: var(--sub-message-color);
-  padding: 8px;
+  padding: 8px 12px;
   border-radius: 20px;
   width: fit-content;
   margin-left: 46px;
+}
+
+.artist-message .date,
+.artist-message .time {
+  display: inline-block;
+  color: var(--sub-date-color);
+  font-size: 8px;
+}
+
+.artist-message .date {
+  margin-left: 4px;
+}
+
+.artist-message .time {
+  margin-left: 2px;
+}
+
+.message-date {
+  color: white;
+  background-color: var(--sub-side-color);
+  width: 50%;
+  text-align: center;
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 20px;
+  margin: 20px auto;
 }

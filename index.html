@@ -8,7 +8,9 @@
       src="https://kit.fontawesome.com/f8f700acb4.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./message.js"></script>
+    <script type="module" src="./index.js"></script>
     <title>YUBIN 프라이빗 메시지가 도착했어요!</title>
   </head>
   <body>
@@ -19,15 +21,7 @@
         <span class="calendar"><i class="fa-regular fa-calendar"></i></span>
       </div>
       <div id="message-wrap">
-        <ul id="messages">
-          <li>
-            <div class="profile">
-              <img src="./images/profile.jpg" class="profile-image" />
-              <span class="name">유빈</span>
-            </div>
-            <div class="artist-message">뭐하고 있었어~</div>
-          </li>
-        </ul>
+        <ul id="messages"></ul>
       </div>
       <div id="input-field">
         <div class="user-message">
