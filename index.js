@@ -1,9 +1,44 @@
-import privateMessage from './message.js';
+import { privateMessage, dateList } from './message.js';
 
-let nickname = '닉네임';
+let nickname = '';
 const messageList = document.getElementById('messages');
+const landingSubmit = document.querySelector('#landing button');
+const dateListUl = document.getElementById('dateList');
+const homeButton = document.querySelector('.arrow');
+const calendarButton = document.querySelector('.calendar');
 
-function renderMessage() {
+landingSubmit.addEventListener('click', goToSelect);
+dateListUl.addEventListener('click', messageHanler);
+
+homeButton.addEventListener('click', () => {
+  document.getElementById('landing').style.display = 'flex';
+  document.getElementById('selectMonth').style.display = 'flex';
+});
+calendarButton.addEventListener('click', () => {
+  document.getElementById('selectMonth').style.display = 'flex';
+});
+
+function messageHanler(e) {
+  const targetDate = e.target.innerHTML;
+  document.getElementById('selectMonth').style.display = 'none';
+  renderMessage(privateMessage[targetDate]);
+  window.location.href = '#';
+}
+
+function renderMonth() {
+  let aHtml = [];
+  dateList.forEach((date) => {
+    const element = `
+      <li class="date-list-elem">${date}</li>
+    `;
+
+    aHtml.push(element);
+  });
+
+  dateListUl.innerHTML = aHtml.join('');
+}
+
+function renderMessage(privateMessage) {
   let aHtml = [];
   privateMessage.forEach((day) => {
     const date = day.date;
@@ -50,4 +85,11 @@ function renderMessage() {
     messageList.innerHTML = aHtml.join('');
   });
 }
-renderMessage();
+
+function goToSelect() {
+  nickname = document.getElementById('nickname').value;
+
+  document.getElementById('landing').style.display = 'none';
+}
+
+renderMonth();
