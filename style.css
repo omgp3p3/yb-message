@@ -105,7 +105,6 @@ li {
 }
 .artist-message .content {
   color: white;
-  font-weight: 300;
   font-size: 14px;
   background-color: var(--sub-message-color);
   padding: 8px 12px;
@@ -118,7 +117,7 @@ li {
 .artist-message .time {
   display: inline-block;
   color: var(--sub-date-color);
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .artist-message .date {

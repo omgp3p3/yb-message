@@ -12,7 +12,9 @@ function renderMessage() {
     aHtml.push(`<div class="message-date">${date}</div>`);
 
     messages.forEach((msg) => {
-      msg.content = msg.content.replace('@@', nickname);
+      while (msg.content.indexOf('@@') >= 0) {
+        msg.content = msg.content.replace('@@', nickname);
+      }
       let element = `
       <li>
         <div class="profile">
