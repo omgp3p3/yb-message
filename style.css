@@ -217,3 +217,49 @@ a {
 .date-list-elem:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+#selectDay {
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: fixed;
+  top: 70px;
+  right: 50%;
+  transform: translate(120%);
+  display: none;
+  width: 200px;
+  height: fit-content;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.arrow,
+.calendar {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#dayList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin: 20px;
+}
+
+#selectDay p {
+  display: block;
+  margin-top: 20px;
+}
+
+#dayList li {
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#dayList li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}

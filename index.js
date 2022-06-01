@@ -1,27 +1,53 @@
 import { privateMessage, dateList } from './message.js';
 
 let nickname = '';
+let dayList = [];
+let targetMonth = '';
 const messageList = document.getElementById('messages');
 const landingSubmit = document.querySelector('#landing button');
 const dateListUl = document.getElementById('dateList');
-const homeButton = document.querySelector('.arrow');
+const arrowButton = document.querySelector('.arrow');
 const calendarButton = document.querySelector('.calendar');
+const selectDayField = document.getElementById('selectDay');
+const dayListUl = document.getElementById('dayList');
 
 landingSubmit.addEventListener('click', goToSelect);
 dateListUl.addEventListener('click', messageHanler);
 
-homeButton.addEventListener('click', () => {
-  document.getElementById('landing').style.display = 'flex';
+arrowButton.addEventListener('click', () => {
   document.getElementById('selectMonth').style.display = 'flex';
 });
 calendarButton.addEventListener('click', () => {
-  document.getElementById('selectMonth').style.display = 'flex';
+  if (selectDayField.style.display === 'none') {
+    selectDayField.style.display = 'flex';
+  } else {
+    selectDayField.style.display = 'none';
+  }
 });
+dayListUl.addEventListener('click', moveToDay);
+
+function moveToDay(e) {
+  if (e.target.tagName !== 'LI') return;
+  const targetDay = e.target.innerHTML;
+  const moveToId = `${targetMonth}.${targetDay}`;
+  const moveTo = document.getElementById(`${moveToId}`).offsetTop - 80;
+
+  window.scrollTo(0, moveTo);
+  selectDayField.style.display = 'none';
+}
+
+function dayListRender() {
+  dayList = dayList.map((day) => `<li class="day-list-elem">${day}</li>`);
+
+  dayListUl.innerHTML = dayList.join('');
+}
 
 function messageHanler(e) {
-  const targetDate = e.target.innerHTML;
+  if (e.target.tagName !== 'LI') return;
+  targetMonth = e.target.innerHTML;
   document.getElementById('selectMonth').style.display = 'none';
-  renderMessage(privateMessage[targetDate]);
+  renderMessage(privateMessage[targetMonth]);
+  dayListRender();
   window.location.href = '#';
 }
 
@@ -40,11 +66,14 @@ function renderMonth() {
 
 function renderMessage(privateMessage) {
   let aHtml = [];
+  dayList = [];
   privateMessage.forEach((day) => {
     const date = day.date;
     const messages = day.messages;
+    const [splittedYear, splittedMonth, splittedDay] = day.date.split('.');
+    dayList.push(splittedDay);
 
-    aHtml.push(`<div class="message-date">${date}</div>`);
+    aHtml.push(`<div class="message-date" id="${date}">${date}</div>`);
 
     messages.forEach((msg) => {
       while (msg.content.indexOf('@@') >= 0) {
