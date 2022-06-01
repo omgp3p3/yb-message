@@ -55,29 +55,33 @@ function renderMessage(privateMessage) {
         <div class="profile">
           <img src="./images/profile.jpg" class="profile-image" />
           <span class="name">유빈</span>
-        </div>
-        <div class="artist-message">
+        </div>`;
+      if (msg.content.indexOf('videos') >= 0) {
+        element += `
+          <div class="artist-message">
+            <a href="${msg.content}.mp4" target="_blank"><img src="${msg.content}.jpg" class="message-photo"/></a>
+            <span class="date">${date}</span>
+            <span class="time">${msg.time}</span>
+          </div>
+        </li>
+        `;
+      } else if (msg.content.indexOf('images') >= 0) {
+        element += `
+          <div class="artist-message">
+            <a href="${msg.content}.jpg" target="_blank"><img src="${msg.content}.jpg" class="message-photo"/></a>
+            <span class="date">${date}</span>
+            <span class="time">${msg.time}</span>
+          </div>
+        </li>
+        `;
+      } else {
+        element += `<div class="artist-message">
           <span class="content">${msg.content}</span>
           <span class="date">${date}</span>
           <span class="time">${msg.time}</span>
         </div>
       </li>
       `;
-
-      if (msg.content.indexOf('images') >= 0) {
-        element = `
-        <li>
-          <div class="profile">
-            <img src="./images/profile.jpg" class="profile-image" />
-            <span class="name">유빈</span>
-          </div>
-          <div class="artist-message">
-            <a href="${msg.content}" target="_blank"><img src="${msg.content}" class="message-photo"/></a>
-            <span class="date">${date}</span>
-            <span class="time">${msg.time}</span>
-          </div>
-        </li>
-        `;
       }
 
       aHtml.push(element);
