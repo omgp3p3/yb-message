@@ -95,7 +95,7 @@ li {
 }
 .name {
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   margin-top: 10px;
   margin-left: 6px;
 }
@@ -108,7 +108,7 @@ li {
   color: white;
   font-size: 14px;
   background-color: var(--sub-message-color);
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 20px;
   width: fit-content;
   margin-left: 46px;
@@ -118,7 +118,7 @@ li {
 .artist-message .time {
   display: inline-block;
   color: var(--sub-date-color);
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .artist-message .date {
@@ -224,8 +224,7 @@ a {
   color: white;
   position: fixed;
   top: 70px;
-  right: 50%;
-  transform: translate(120%);
+  margin-left: 280px;
   display: none;
   width: 200px;
   height: fit-content;

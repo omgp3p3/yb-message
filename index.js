@@ -7,7 +7,7 @@ const messageList = document.getElementById('messages');
 const landingSubmit = document.querySelector('#landing button');
 const dateListUl = document.getElementById('dateList');
 const arrowButton = document.querySelector('.arrow');
-const calendarButton = document.querySelector('.calendar');
+const calendarButton = document.querySelector('.fa-calendar');
 const selectDayField = document.getElementById('selectDay');
 const dayListUl = document.getElementById('dayList');
 
@@ -16,6 +16,7 @@ dateListUl.addEventListener('click', messageHanler);
 
 arrowButton.addEventListener('click', () => {
   document.getElementById('selectMonth').style.display = 'flex';
+  selectDayField.style.display = 'none';
 });
 calendarButton.addEventListener('click', () => {
   if (selectDayField.style.display === 'none') {
