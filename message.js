@@ -5845,7 +5845,11 @@ const privateMessage = {
         { time: '23:37', content: '기다리고있겠다 미라클' },
         { time: '23:37', content: '우리가 승부를 보는 그 날까지' },
         { time: '23:38', content: '각오를 단단히 하고있어야할거야' },
-        { time: '23:38', content: `coming<br>soooooooooooooooooooooooooooon` },
+        {
+          time: '23:38',
+          content: `coming<br>
+        soooooooooooooooooooooooooooon`,
+        },
         { time: '23:39', content: 'ㅋㅋㅋㅋㅋ' },
         { time: '23:39', content: '오케이' },
         { time: '23:39', content: '그 때까지 다들 건강하게 지내는걸로' },
