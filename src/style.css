@@ -150,6 +150,7 @@ li {
   margin-left: 46px;
 }
 
+#passwordInput,
 #landing,
 #selectMonth {
   position: fixed;
@@ -165,10 +166,15 @@ li {
   background-color: var(--main-bg-color);
 }
 
+#passwordInput {
+  z-index: 4;
+}
+
 #landing {
   z-index: 3;
 }
 
+#passwordInput p,
 #landing p,
 #selectMonth p {
   color: white;
@@ -176,6 +182,7 @@ li {
   margin-bottom: 8px;
 }
 
+#passwordInput input,
 #landing input {
   border: none;
   padding: 8px;
@@ -185,6 +192,7 @@ li {
   color: white;
 }
 
+#passwordInput button,
 #landing button {
   border: none;
   color: white;
@@ -193,6 +201,7 @@ li {
   border-radius: 8px;
 }
 
+#passwordInput img,
 #landing img {
   width: 120px;
   margin-bottom: 80px;
