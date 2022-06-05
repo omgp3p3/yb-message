@@ -4,7 +4,7 @@ import './style.css';
 function Landing({ setLanding, setNickName }) {
   return (
     <div id="landing">
-      <img src={'images/logo.png'} alt="" />
+      <img src={'images/profile.jpg'} alt="" />
       <p>닉네임을 입력하세요!</p>
       <p>'@@'에 표시됩니다.</p>
       <input

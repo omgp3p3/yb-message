@@ -4,7 +4,7 @@ function PasswordInput({ setPass }) {
   const [pwd, setPwd] = useState('');
   return (
     <div id="passwordInput">
-      <img src={'images/logo.png'} alt="" />
+      <img src={'images/profile.jpg'} alt="" />
       <p>2022년 5월 마지막 프메 날짜를 입력하세요</p>
       <input
         type="text"
