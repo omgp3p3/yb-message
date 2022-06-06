@@ -204,7 +204,7 @@ li {
 #passwordInput img,
 #landing img {
   width: 150px;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   border-radius: 50%;
   border: 5px solid transparent;
   background-image: linear-gradient(#22222a, #22222a),
