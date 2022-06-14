@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function PasswordInput({ setPass }) {
   const [pwd, setPwd] = useState('');
+  const password = process.env.REACT_APP_PASSWORD;
   return (
     <div id="passwordInput">
       <img src={'images/profile.jpg'} alt="" />
@@ -15,7 +16,7 @@ function PasswordInput({ setPass }) {
       <button
         type="button"
         onClick={() => {
-          if (pwd === '0529') {
+          if (pwd === password) {
             setPass(false);
           } else {
             alert('잘못된 날짜입니다.');
