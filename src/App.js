@@ -15,11 +15,13 @@ function App() {
       {pass && <PasswordInput setPass={setPass} />}
       {landing && <Landing setLanding={setLanding} setNickName={setNickName} />}
       {month < 0 && <SelectMonth setMonth={setMonth} />}
-      <MessageList
-        nickName={nickName}
-        selectedMonth={month}
-        setMonth={setMonth}
-      />
+      {month >= 0 && (
+        <MessageList
+          nickName={nickName}
+          selectedMonth={month}
+          setMonth={setMonth}
+        />
+      )}
     </>
   );
 }

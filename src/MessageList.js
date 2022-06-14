@@ -1,105 +1,9 @@
 import React, { useState } from 'react';
 import { privateMessage } from './message';
+import SelectDay from './SelectDay';
 import './style.css';
 
-function RenderMessage({ msg, date, nickName }) {
-  return (
-    <>
-      {msg.map((m, index) => {
-        let { time, content } = m;
-        while (content.indexOf('@@') >= 0) {
-          content = content.replace('@@', nickName);
-        }
-        const isImage = content.indexOf('message') >= 0;
-        const isVideo = content.indexOf('videos') >= 0;
-        if (isImage) {
-          return (
-            <li key={index}>
-              <div className="profile">
-                <img
-                  src={'images/profile.jpg'}
-                  alt="profile"
-                  className="profile-image"
-                />
-                <span className="name">유빈</span>
-              </div>
-              <div className="artist-message">
-                <a href={content + '.jpg'} target="_blank">
-                  <img
-                    src={content + '.jpg'}
-                    className="message-photo"
-                    alt=""
-                  />
-                </a>
-                <span className="date">{date}</span>
-                <span className="time">{time}</span>
-              </div>
-            </li>
-          );
-        } else if (isVideo) {
-          return (
-            <li key={index}>
-              <div className="profile">
-                <img
-                  src={'images/profile.jpg'}
-                  alt="profile"
-                  className="profile-image"
-                />
-                <span className="name">유빈</span>
-              </div>
-              <div className="artist-message">
-                <a href={content + '.mp4'} target="_blank">
-                  <img src={content + '.jpg'} className="message-photo" />
-                </a>
-                <span className="date">{date}</span>
-                <span className="time">{time}</span>
-              </div>
-            </li>
-          );
-        }
-
-        return (
-          <li key={index}>
-            <div className="profile">
-              <img
-                src={'images/profile.jpg'}
-                alt="profile"
-                className="profile-image"
-              />
-              <span className="name">유빈</span>
-            </div>
-            <div className="artist-message">
-              <span className="content">{content}</span>
-              <span className="date">{date}</span>
-              <span className="time">{time}</span>
-            </div>
-          </li>
-        );
-      })}
-    </>
-  );
-}
-
-function Message({ msg, nickName }) {
-  return (
-    <div>
-      {msg.map((m, index) => {
-        const { date, messages } = m;
-        return (
-          <ul id="messages" key={index}>
-            <div className="message-date" id={date}>
-              {date}
-            </div>
-            <RenderMessage msg={messages} date={date} nickName={nickName} />
-          </ul>
-        );
-      })}
-    </div>
-  );
-}
-
 function MessageList({ nickName, selectedMonth, setMonth }) {
-  if (selectedMonth === -1) selectedMonth = 0;
   const messages = Object.entries(privateMessage)[selectedMonth];
   const [month, monthMessage] = messages;
 
@@ -112,24 +16,11 @@ function MessageList({ nickName, selectedMonth, setMonth }) {
 
   return (
     <div id="message-container">
-      <div id="title">
-        <span
-          className="arrow"
-          onClick={() => {
-            setMonth(-1);
-            setDayVisible(false);
-            window.scrollTo(0, 0);
-          }}
-        >
-          <i className="fa-solid fa-angle-left"></i>
-        </span>
-        <a href="#">
-          <span className="artist">유빈</span>
-        </a>
-        <span className="calendar" onClick={() => setDayVisible(!dayVisible)}>
-          <i className="fa-regular fa-calendar"></i>
-        </span>
-      </div>
+      <Header
+        setMonth={setMonth}
+        dayVisible={dayVisible}
+        setDayVisible={setDayVisible}
+      />
       {dayVisible && (
         <SelectDay
           dayList={dayList}
@@ -140,52 +31,118 @@ function MessageList({ nickName, selectedMonth, setMonth }) {
       <div id="message-wrap">
         <Message msg={monthMessage} nickName={nickName} />
       </div>
-      <div id="input-field">
-        <div className="user-message">
-          유빈아 사랑해♡
-          <button className="push-button">
-            <i className="fa-solid fa-arrow-up"></i>
-          </button>
-        </div>
+      <InputField />
+    </div>
+  );
+}
+
+function Message({ msg, nickName }) {
+  return (
+    <div>
+      {msg.map((m) => {
+        const { date, messages } = m;
+        return (
+          <ul id="messages" key={date}>
+            <div className="message-date" id={date}>
+              {date}
+            </div>
+            <RenderMessage msg={messages} date={date} nickName={nickName} />
+          </ul>
+        );
+      })}
+    </div>
+  );
+}
+
+function RenderMessage({ msg, date, nickName }) {
+  return (
+    <>
+      {msg.map((m, index) => {
+        let { time, content } = m;
+
+        while (content.indexOf('@@') >= 0) {
+          content = content.replace('@@', nickName);
+        }
+
+        const flag = content.includes('message')
+          ? 'image'
+          : content.includes('videos')
+          ? 'video'
+          : 'message';
+
+        return (
+          <li key={index}>
+            <Profile />
+            <Content flag={flag} content={content} date={date} time={time} />
+          </li>
+        );
+      })}
+    </>
+  );
+}
+
+function Profile() {
+  return (
+    <div className="profile">
+      <img src={'images/profile.jpg'} alt="profile" className="profile-image" />
+      <span className="name">유빈</span>
+    </div>
+  );
+}
+
+function Content({ flag, content, date, time }) {
+  return (
+    <div className="artist-message">
+      {flag === 'image' && (
+        <a href={content + '.jpg'} target="_blank">
+          <img src={content + '.jpg'} className="message-photo" alt="" />
+        </a>
+      )}
+      {flag === 'video' && (
+        <a href={content + '.mp4'} target="_blank">
+          <img src={content + '.jpg'} className="message-photo" />
+        </a>
+      )}
+      {flag === 'message' && <span className="content">{content}</span>}
+
+      <span className="date">{date}</span>
+      <span className="time">{time}</span>
+    </div>
+  );
+}
+
+function Header({ setMonth, dayVisible, setDayVisible }) {
+  return (
+    <div id="title">
+      <span
+        className="arrow"
+        onClick={() => {
+          setMonth(-1);
+          setDayVisible(false);
+        }}
+      >
+        <i className="fa-solid fa-angle-left"></i>
+      </span>
+      <a href="#">
+        <span className="artist">유빈</span>
+      </a>
+      <span className="calendar" onClick={() => setDayVisible(!dayVisible)}>
+        <i className="fa-regular fa-calendar"></i>
+      </span>
+    </div>
+  );
+}
+
+function InputField() {
+  return (
+    <div id="input-field">
+      <div className="user-message">
+        유빈아 사랑해♡
+        <button className="push-button">
+          <i className="fa-solid fa-arrow-up"></i>
+        </button>
       </div>
     </div>
-  );
-  // console.log(Object.entries(privateMessage));
-}
-
-function SelectDay({ dayList, month, setDayVisible }) {
-  return (
-    <div id="selectDay">
-      <p>날짜를 골라주세요</p>
-      <ul id="dayList">
-        {dayList.map((day, index) => {
-          return (
-            <RenderDays
-              day={day}
-              key={index}
-              month={month}
-              setDayVisible={setDayVisible}
-            />
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
-
-function RenderDays({ day, month, setDayVisible }) {
-  return (
-    <li
-      className="day-list-elem"
-      onClick={(e) => {
-        const date = month + '.' + day;
-        const moveTo = document.getElementById(`${date}`).offsetTop - 80;
-        window.scrollTo(0, moveTo);
-        setDayVisible(false);
-      }}
-    >
-      {day}
-    </li>
   );
 }
 
