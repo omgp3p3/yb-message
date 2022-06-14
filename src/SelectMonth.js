@@ -21,18 +21,36 @@ function SelectMonth({ setMonth }) {
     <div id="selectMonth">
       <p>메시지가 많아</p>
       <p>프메를 월별로 정리하였습니다.</p>
-      <ul id="dateList">
-        {dateList.map((list, index) => {
-          return (
-            <MonthList
-              data={list}
-              key={index}
-              setMonth={setMonth}
-              idx={index}
-            />
-          );
-        })}
-      </ul>
+      <div className="date-ul-wrap">
+        <ul id="dateList year21">
+          {dateList.map((list, index) => {
+            return (
+              list.includes('2021') && (
+                <MonthList
+                  data={list}
+                  key={index}
+                  setMonth={setMonth}
+                  idx={index}
+                />
+              )
+            );
+          })}
+        </ul>
+        <ul id="dateList year22">
+          {dateList.map((list, index) => {
+            return (
+              list.includes('2022') && (
+                <MonthList
+                  data={list}
+                  key={index}
+                  setMonth={setMonth}
+                  idx={index}
+                />
+              )
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
