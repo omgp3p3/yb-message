@@ -4,11 +4,11 @@ import Landing from './Landing';
 import SelectMonth from './SelectMonth';
 import PasswordInput from './PasswordInput';
 
-function App() {
+const App = () => {
   const [isPassed, setIsPassed] = useState(false);
   const [showLanding, setShowLanding] = useState(true);
   const [nickName, setNickName] = useState('');
-  const [month, setMonth] = useState(-1);
+  const [month, setMonth] = useState(null);
 
   const passHandler = () => {
     setIsPassed(true);
@@ -23,8 +23,9 @@ function App() {
     <>
       {!isPassed && <PasswordInput onPass={passHandler} />}
       {showLanding && <Landing onSet={setNicknameHandler} />}
-      {month < 0 && <SelectMonth setMonth={setMonth} />}
-      {month >= 0 && (
+      {!month ? (
+        <SelectMonth setMonth={setMonth} />
+      ) : (
         <MessageList
           nickName={nickName}
           selectedMonth={month}
@@ -33,6 +34,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './style.css';
 
-function Landing({ onSet }) {
+const Landing = ({ onSet }) => {
   const nicknameRef = useRef('');
 
   const submitHandler = (event) => {
@@ -18,6 +18,6 @@ function Landing({ onSet }) {
       <button>입장</button>
     </form>
   );
-}
+};
 
 export default Landing;

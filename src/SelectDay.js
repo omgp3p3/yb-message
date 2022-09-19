@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SelectDay({ dayList, month, setDayVisible }) {
+const SelectDay = ({ dayList, month, setDayVisible }) => {
   return (
     <div id="selectDay">
       <p>날짜를 골라주세요</p>
@@ -18,9 +18,9 @@ function SelectDay({ dayList, month, setDayVisible }) {
       </ul>
     </div>
   );
-}
+};
 
-function RenderDays({ day, month, setDayVisible }) {
+const RenderDays = ({ day, month, setDayVisible }) => {
   return (
     <li
       className="day-list-elem"
@@ -34,6 +34,6 @@ function RenderDays({ day, month, setDayVisible }) {
       {day}
     </li>
   );
-}
+};
 
 export default SelectDay;

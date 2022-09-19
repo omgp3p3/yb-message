@@ -2,11 +2,12 @@ import React from 'react';
 import { dateList } from './message';
 import './style.css';
 
-function MonthList({ data, setMonth, idx }) {
+const MonthList = ({ data, setMonth, idx }) => {
   return (
     <li
       className="date-list-elem"
       onClick={() => {
+        console.log(idx);
         setMonth(idx);
         window.scrollTo(0, 0);
       }}
@@ -14,9 +15,9 @@ function MonthList({ data, setMonth, idx }) {
       {data}
     </li>
   );
-}
+};
 
-function SelectMonth({ setMonth }) {
+const SelectMonth = ({ setMonth }) => {
   return (
     <div id="selectMonth">
       <p>메시지가 많아</p>
@@ -53,6 +54,6 @@ function SelectMonth({ setMonth }) {
       </div>
     </div>
   );
-}
+};
 
 export default SelectMonth;

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-function PasswordInput({ onPass }) {
+const PasswordInput = ({ onPass }) => {
   const pwdRef = useRef('');
   const password = process.env.REACT_APP_PASSWORD;
 
@@ -22,6 +22,6 @@ function PasswordInput({ onPass }) {
       </button>
     </div>
   );
-}
+};
 
 export default PasswordInput;

@@ -3,7 +3,7 @@ import { privateMessage } from './message';
 import SelectDay from './SelectDay';
 import './style.css';
 
-function MessageList({ nickName, selectedMonth, setMonth }) {
+const MessageList = ({ nickName, selectedMonth, setMonth }) => {
   const messages = Object.entries(privateMessage)[selectedMonth];
   const [month, monthMessage] = messages;
 
@@ -34,9 +34,9 @@ function MessageList({ nickName, selectedMonth, setMonth }) {
       <InputField />
     </div>
   );
-}
+};
 
-function Message({ msg, nickName }) {
+const Message = ({ msg, nickName }) => {
   return (
     <div>
       {msg.map((m) => {
@@ -52,9 +52,9 @@ function Message({ msg, nickName }) {
       })}
     </div>
   );
-}
+};
 
-function RenderMessage({ msg, date, nickName }) {
+const RenderMessage = ({ msg, date, nickName }) => {
   return (
     <>
       {msg.map((m, index) => {
@@ -79,28 +79,28 @@ function RenderMessage({ msg, date, nickName }) {
       })}
     </>
   );
-}
+};
 
-function Profile() {
+const Profile = () => {
   return (
     <div className="profile">
       <img src={'images/profile.jpg'} alt="profile" className="profile-image" />
       <span className="name">유빈</span>
     </div>
   );
-}
+};
 
-function Content({ flag, content, date, time }) {
+const Content = ({ flag, content, date, time }) => {
   return (
     <div className="artist-message">
       {flag === 'image' && (
-        <a href={content + '.jpg'} target="_blank">
+        <a href={content + '.jpg'} target="_blank" rel="noopener noreferrer">
           <img src={content + '.jpg'} className="message-photo" alt="" />
         </a>
       )}
       {flag === 'video' && (
-        <a href={content + '.mp4'} target="_blank">
-          <img src={content + '.jpg'} className="message-photo" />
+        <a href={content + '.mp4'} target="_blank" rel="noopener noreferrer">
+          <img src={content + '.jpg'} className="message-photo" alt="" />
         </a>
       )}
       {flag === 'message' && <span className="content">{content}</span>}
@@ -109,15 +109,15 @@ function Content({ flag, content, date, time }) {
       <span className="time">{time}</span>
     </div>
   );
-}
+};
 
-function Header({ setMonth, dayVisible, setDayVisible }) {
+const Header = ({ setMonth, dayVisible, setDayVisible }) => {
   return (
     <div id="title">
       <span
         className="arrow"
         onClick={() => {
-          setMonth(-1);
+          setMonth(null);
           setDayVisible(false);
         }}
       >
@@ -131,9 +131,9 @@ function Header({ setMonth, dayVisible, setDayVisible }) {
       </span>
     </div>
   );
-}
+};
 
-function InputField() {
+const InputField = () => {
   return (
     <div id="input-field">
       <div className="user-message">
@@ -144,6 +144,6 @@ function InputField() {
       </div>
     </div>
   );
-}
+};
 
 export default MessageList;
