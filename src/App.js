@@ -6,7 +6,7 @@ import PasswordInput from './PasswordInput';
 
 function App() {
   const [isPassed, setIsPassed] = useState(false);
-  const [landing, setLanding] = useState(true);
+  const [showLanding, setShowLanding] = useState(true);
   const [nickName, setNickName] = useState('');
   const [month, setMonth] = useState(-1);
 
@@ -14,10 +14,15 @@ function App() {
     setIsPassed(true);
   };
 
+  const setNicknameHandler = (enteredNickname) => {
+    setNickName(enteredNickname);
+    setShowLanding(false);
+  };
+
   return (
     <>
       {!isPassed && <PasswordInput onPass={passHandler} />}
-      {landing && <Landing setLanding={setLanding} setNickName={setNickName} />}
+      {showLanding && <Landing onSet={setNicknameHandler} />}
       {month < 0 && <SelectMonth setMonth={setMonth} />}
       {month >= 0 && (
         <MessageList
