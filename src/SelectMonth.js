@@ -7,7 +7,6 @@ const MonthList = ({ data, setMonth, idx }) => {
     <li
       className="date-list-elem"
       onClick={() => {
-        console.log(idx);
         setMonth(idx);
         window.scrollTo(0, 0);
       }}
@@ -17,7 +16,7 @@ const MonthList = ({ data, setMonth, idx }) => {
   );
 };
 
-const SelectMonth = ({ setMonth }) => {
+const SelectMonth = ({ onSelect }) => {
   return (
     <div id="selectMonth">
       <p>메시지가 많아</p>
@@ -29,8 +28,8 @@ const SelectMonth = ({ setMonth }) => {
               list.includes('2021') && (
                 <MonthList
                   data={list}
-                  key={index}
-                  setMonth={setMonth}
+                  key={`2021-select-month-${index}`}
+                  setMonth={onSelect}
                   idx={index}
                 />
               )
@@ -43,8 +42,8 @@ const SelectMonth = ({ setMonth }) => {
               list.includes('2022') && (
                 <MonthList
                   data={list}
-                  key={index}
-                  setMonth={setMonth}
+                  key={`2022-select-month-${index}`}
+                  setMonth={onSelect}
                   idx={index}
                 />
               )

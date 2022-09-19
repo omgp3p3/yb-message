@@ -23,8 +23,8 @@ const App = () => {
     <>
       {!isPassed && <PasswordInput onPass={passHandler} />}
       {showLanding && <Landing onSet={setNicknameHandler} />}
-      {!month ? (
-        <SelectMonth setMonth={setMonth} />
+      {month === null ? (
+        <SelectMonth onSelect={setMonth} />
       ) : (
         <MessageList
           nickName={nickName}

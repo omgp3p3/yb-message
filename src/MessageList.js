@@ -29,24 +29,28 @@ const MessageList = ({ nickName, selectedMonth, setMonth }) => {
         />
       )}
       <div id="message-wrap">
-        <Message msg={monthMessage} nickName={nickName} />
+        <Message messageList={monthMessage} nickName={nickName} />
       </div>
       <InputField />
     </div>
   );
 };
 
-const Message = ({ msg, nickName }) => {
+const Message = ({ messageList, nickName }) => {
   return (
     <div>
-      {msg.map((m) => {
-        const { date, messages } = m;
+      {messageList.map((msg) => {
+        const { date, messages } = msg;
         return (
           <ul id="messages" key={date}>
             <div className="message-date" id={date}>
               {date}
             </div>
-            <RenderMessage msg={messages} date={date} nickName={nickName} />
+            <RenderMessage
+              messageList={messages}
+              date={date}
+              nickName={nickName}
+            />
           </ul>
         );
       })}
@@ -54,13 +58,13 @@ const Message = ({ msg, nickName }) => {
   );
 };
 
-const RenderMessage = ({ msg, date, nickName }) => {
+const RenderMessage = ({ messageList, date, nickName }) => {
   return (
     <>
-      {msg.map((m, index) => {
-        let { time, content } = m;
+      {messageList.map((msg, index) => {
+        let { time, content } = msg;
 
-        while (content.indexOf('@@') >= 0) {
+        while (content.includes('@@')) {
           content = content.replace('@@', nickName);
         }
 
@@ -71,7 +75,7 @@ const RenderMessage = ({ msg, date, nickName }) => {
           : 'message';
 
         return (
-          <li key={index}>
+          <li key={`${date}-${index}`}>
             <Profile />
             <Content flag={flag} content={content} date={date} time={time} />
           </li>
