@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 
 const PasswordInput = ({ onPass }) => {
   const pwdRef = useRef('');
@@ -14,17 +14,13 @@ const PasswordInput = ({ onPass }) => {
     onPass();
   };
 
-  useEffect(() => {
-    pwdRef.current.focus();
-  }, []);
-
   return (
     <form onSubmit={passwordValidationHandler}>
       <div id="passwordInput">
         <img src={'images/profile.jpg'} alt="" />
         <p>2022년 5월 마지막 프메 날짜를 입력하세요</p>
         <input ref={pwdRef} type="text" placeholder="05XX" />
-        <button type="button">입력</button>
+        <button type="submit">입력</button>
       </div>
     </form>
   );
