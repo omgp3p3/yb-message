@@ -13,7 +13,6 @@ const Landing = () => {
   const authorized = state.authorized;
   useEffect(() => {
     if (!authorized) {
-      alert('어허!');
       navigate('/');
     }
     nicknameRef.current.focus();

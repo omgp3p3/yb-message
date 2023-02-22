@@ -13,7 +13,6 @@ const MessageList = () => {
   const authorized = state.authorized;
   useEffect(() => {
     if (!authorized) {
-      alert('어허!');
       navigate('/');
     }
   }, [navigate, authorized]);
