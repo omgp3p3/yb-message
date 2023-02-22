@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { dateList } from './message';
 import './style.css';
-import { useYBState, useYBActions } from './context/Context';
+import { useYBState } from './context/Context';
 
-const MonthList = ({ data, navigate, idx }) => {
-  const actions = useYBActions();
+const MonthList = ({ data, navigate }) => {
   const [year, month] = data.split('.');
 
   return (
