@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const SelectDay = ({ dayList, month, setDayVisible }) => {
   return (
@@ -21,16 +21,14 @@ const SelectDay = ({ dayList, month, setDayVisible }) => {
 };
 
 const RenderDays = ({ day, month, setDayVisible }) => {
+  const clickHandler = () => {
+    const date = month + '.' + day;
+    const moveTo = document.getElementById(`${date}`).offsetTop - 80;
+    window.scrollTo(0, moveTo);
+    setDayVisible(false);
+  };
   return (
-    <li
-      className="day-list-elem"
-      onClick={(e) => {
-        const date = month + '.' + day;
-        const moveTo = document.getElementById(`${date}`).offsetTop - 80;
-        window.scrollTo(0, moveTo);
-        setDayVisible(false);
-      }}
-    >
+    <li className="day-list-elem" onClick={clickHandler}>
       {day}
     </li>
   );

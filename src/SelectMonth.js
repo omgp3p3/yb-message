@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { dateList } from './message';
 import './style.css';
+import { useYBState, useYBActions } from './context/Context';
 
-const MonthList = ({ data, setMonth, idx }) => {
+const MonthList = ({ data, navigate, idx }) => {
+  const actions = useYBActions();
+  const [year, month] = data.split('.');
+
   return (
     <li
       className="date-list-elem"
       onClick={() => {
-        setMonth(idx);
+        navigate(`/date/${year}/${month}`);
         window.scrollTo(0, 0);
       }}
     >
@@ -16,7 +22,18 @@ const MonthList = ({ data, setMonth, idx }) => {
   );
 };
 
-const SelectMonth = ({ onSelect }) => {
+const SelectMonth = () => {
+  const state = useYBState();
+  const navigate = useNavigate();
+
+  const authorized = state.authorized;
+  useEffect(() => {
+    if (!authorized) {
+      alert('어허!');
+      navigate('/');
+    }
+  }, [navigate, authorized]);
+
   return (
     <div id="selectMonth">
       <p>메시지가 많아</p>
@@ -29,7 +46,7 @@ const SelectMonth = ({ onSelect }) => {
                 <MonthList
                   data={list}
                   key={`2021-select-month-${index}`}
-                  setMonth={onSelect}
+                  navigate={navigate}
                   idx={index}
                 />
               )
@@ -43,7 +60,7 @@ const SelectMonth = ({ onSelect }) => {
                 <MonthList
                   data={list}
                   key={`2022-select-month-${index}`}
-                  setMonth={onSelect}
+                  navigate={navigate}
                   idx={index}
                 />
               )

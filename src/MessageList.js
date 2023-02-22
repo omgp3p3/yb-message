@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import { privateMessage } from './message';
 import SelectDay from './SelectDay';
 import './style.css';
+import { useYBState } from './context/Context';
 
-const MessageList = ({ nickName, selectedMonth, setMonth }) => {
-  const messages = Object.entries(privateMessage)[selectedMonth];
-  const [month, monthMessage] = messages;
+const MessageList = () => {
+  const state = useYBState();
+  const navigate = useNavigate();
+
+  const authorized = state.authorized;
+  useEffect(() => {
+    if (!authorized) {
+      alert('어허!');
+      navigate('/');
+    }
+  }, [navigate, authorized]);
+
+  const { year, month } = useParams();
+  const date = `${year}.${month}`;
+
+  const messages = privateMessage[date];
 
   // 날짜 선택
   const [dayVisible, setDayVisible] = useState(false);
-  const dayList = monthMessage.map((msg) => {
-    const day = msg['date'].split('.')[2];
+  const dayList = messages.map(({ date }) => {
+    const day = date.split('.')[2];
     return day;
   });
 
   return (
     <div id="message-container">
-      <Header
-        setMonth={setMonth}
-        dayVisible={dayVisible}
-        setDayVisible={setDayVisible}
-      />
+      <Header setDayVisible={setDayVisible} />
       {dayVisible && (
         <SelectDay
           dayList={dayList}
-          month={month}
+          month={date}
           setDayVisible={setDayVisible}
         />
       )}
       <div id="message-wrap">
-        <Message messageList={monthMessage} nickName={nickName} />
+        <Message messageList={messages} nickName={state.nickname} />
       </div>
       <InputField />
     </div>
@@ -39,8 +51,7 @@ const MessageList = ({ nickName, selectedMonth, setMonth }) => {
 const Message = ({ messageList, nickName }) => {
   return (
     <div>
-      {messageList.map((msg) => {
-        const { date, messages } = msg;
+      {messageList.map(({ date, messages }) => {
         return (
           <ul id="messages" key={date}>
             <div className="message-date" id={date}>
@@ -64,9 +75,7 @@ const RenderMessage = ({ messageList, date, nickName }) => {
       {messageList.map((msg, index) => {
         let { time, content } = msg;
 
-        while (content.includes('@@')) {
-          content = content.replace('@@', nickName);
-        }
+        content = content.replace(/@@/g, nickName);
 
         const flag = content.includes('message')
           ? 'image'
@@ -88,7 +97,7 @@ const RenderMessage = ({ messageList, date, nickName }) => {
 const Profile = () => {
   return (
     <div className="profile">
-      <img src={'images/profile.jpg'} alt="profile" className="profile-image" />
+      <img src="/images/profile.jpg" alt="profile" className="profile-image" />
       <span className="name">유빈</span>
     </div>
   );
@@ -99,12 +108,20 @@ const Content = ({ flag, content, date, time }) => {
     <div className="artist-message">
       {flag === 'image' && (
         <a href={content + '.jpg'} target="_blank" rel="noopener noreferrer">
-          <img src={content + '.jpg'} className="message-photo" alt="" />
+          <img
+            src={content + '.jpg'}
+            className="message-photo"
+            alt="img-artist-sended"
+          />
         </a>
       )}
       {flag === 'video' && (
         <a href={content + '.mp4'} target="_blank" rel="noopener noreferrer">
-          <img src={content + '.jpg'} className="message-photo" alt="" />
+          <img
+            src={content + '.jpg'}
+            className="message-photo"
+            alt="vid-artist-sended"
+          />
         </a>
       )}
       {flag === 'message' && <span className="content">{content}</span>}
@@ -115,22 +132,25 @@ const Content = ({ flag, content, date, time }) => {
   );
 };
 
-const Header = ({ setMonth, dayVisible, setDayVisible }) => {
+const Header = ({ setDayVisible }) => {
+  const navigate = useNavigate();
   return (
     <div id="title">
       <span
         className="arrow"
         onClick={() => {
-          setMonth(null);
-          setDayVisible(false);
+          navigate(-1);
         }}
       >
         <i className="fa-solid fa-angle-left"></i>
       </span>
-      <a href="#">
+      <div onClick={() => window.scrollTo(0, 0)} style={{ cursor: 'pointer' }}>
         <span className="artist">유빈</span>
-      </a>
-      <span className="calendar" onClick={() => setDayVisible(!dayVisible)}>
+      </div>
+      <span
+        className="calendar"
+        onClick={() => setDayVisible((visible) => !visible)}
+      >
         <i className="fa-regular fa-calendar"></i>
       </span>
     </div>

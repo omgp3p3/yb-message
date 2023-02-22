@@ -1,8 +1,13 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const PasswordInput = ({ onPass }) => {
+import { useYBActions } from './context/Context';
+
+const PasswordInput = () => {
+  const actions = useYBActions();
   const pwdRef = useRef('');
   const password = process.env.REACT_APP_PASSWORD;
+  const navigate = useNavigate();
 
   const passwordValidationHandler = (e) => {
     e.preventDefault();
@@ -11,7 +16,8 @@ const PasswordInput = ({ onPass }) => {
       alert('비밀번호가 틀렸습니다.');
       return;
     }
-    onPass();
+    actions.authorize();
+    navigate('/nickname');
   };
 
   return (

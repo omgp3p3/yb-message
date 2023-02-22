@@ -1,17 +1,30 @@
 import React, { useRef, useEffect } from 'react';
-import './style.css';
+import { useNavigate } from 'react-router-dom';
 
-const Landing = ({ onSet }) => {
+import './style.css';
+import { useYBState, useYBActions } from './context/Context';
+
+const Landing = () => {
+  const state = useYBState();
+  const actions = useYBActions();
   const nicknameRef = useRef('');
+  const navigate = useNavigate();
+
+  const authorized = state.authorized;
+  useEffect(() => {
+    if (!authorized) {
+      alert('어허!');
+      navigate('/');
+    }
+    nicknameRef.current.focus();
+  }, [navigate, authorized]);
 
   const submitHandler = (event) => {
     event.preventDefault();
-    onSet(nicknameRef.current.value);
+    const nickname = nicknameRef.current.value;
+    actions.setNickname(nickname);
+    navigate('/date');
   };
-
-  useEffect(() => {
-    nicknameRef.current.focus();
-  }, []);
 
   return (
     <form id="landing" onSubmit={submitHandler}>
